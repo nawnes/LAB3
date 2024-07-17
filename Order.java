@@ -22,6 +22,17 @@ public class Order {
         notifyObservers();
     }
 
+    public void removeItem(double price) {
+        if (itemCount > 0) {
+            itemCount--;
+            itemCost -= price;
+            if (itemCost < 0) {
+                itemCost = 0;
+            }
+            notifyObservers();
+        }
+    }
+
     public void addObserver(OrderObserver observer) {
         observers.add(observer);
     }
@@ -54,6 +65,15 @@ public class Order {
 
     public int getId() {
         return id;
+    }
+
+    public void displaySummary() {
+        System.out.println("Order Summary:");
+        System.out.println("ID: " + id);
+        System.out.println("Total Items: " + itemCount);
+        System.out.println("Total Cost: $" + itemCost);
+        System.out.println("Shipping Cost: $" + shippingCost);
+        System.out.println("Final Total: $" + (itemCost + shippingCost));
     }
 
     @Override
